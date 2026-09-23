@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f3ed" />
+  <title>네컷일기 — 오늘을 네 장으로</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="네컷일기 홈"><span class="brand-mark">4</span><span>네컷일기</span></a>
+    <div class="top-note"><span class="live-dot"></span> 오늘의 순간을 기록해요</div>
+    <button class="text-button" id="resetBtn" type="button">처음부터 <span aria-hidden="true">↗</span></button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="eyebrow">YOUR LITTLE PHOTO BOOTH</div>
+      <h1>오늘을 <em>네 장</em>으로 남겨요.</h1>
+      <p>카메라 앞에서 웃어봐요. 오늘의 기분까지 담아둘게요.</p>
+    </section>
+
+    <div class="workspace">
+      <section class="studio panel" aria-label="촬영 스튜디오">
+        <div class="section-heading">
+          <div><span class="step-number">01</span><h2>촬영하기</h2></div>
+          <span class="muted" id="cameraStatus">카메라를 연결해주세요</span>
+        </div>
+        <div class="camera-stage" id="cameraStage">
+          <video id="camera" autoplay playsinline muted></video>
+          <div class="camera-placeholder" id="cameraPlaceholder">
+            <div class="camera-icon">◎</div>
+            <strong>오늘의 표정을 준비해볼까요?</strong>
+            <span>카메라를 켜면 여기에서 미리 볼 수 있어요.</span>
+          </div>
+          <div class="camera-overlay" id="countdown" aria-live="polite"></div>
+          <span class="camera-tag"><span class="live-dot"></span> LIVE</span>
+          <button class="flip-button" id="mirrorBtn" type="button" aria-label="좌우 반전" title="좌우 반전">↔</button>
+        </div>
+        <div class="capture-meta"><span id="captureHint">준비되면 촬영을 시작해보세요</span><span id="shotCount">0 / 4</span></div>
+        <div class="capture-actions">
+          <button class="button button-secondary" id="cameraBtn" type="button"><span>◎</span> 카메라 켜기</button>
+          <button class="button button-primary" id="captureBtn" type="button" disabled><span>✦</span> 네 컷 촬영하기</button>
+        </div>
+        <div class="shots-row" id="shotsRow" aria-label="촬영한 사진"></div>
+        <p class="privacy-note"><span>⌑</span> 사진은 이 기기에서만 처리돼요. 서버에 업로드되지 않아요.</p>
+      </section>
+
+      <section class="editor panel" aria-label="사진 편집">
+        <div class="section-heading">
+          <div><span class="step-number">02</span><h2>꾸며보기</h2></div>
+          <span class="muted">마음에 드는 분위기를 골라요</span>
+        </div>
+        <div class="editor-content">
+          <div class="preview-wrap">
+            <div class="photo-strip theme-cream" id="photoStrip">
+              <div class="strip-slots" id="stripSlots">
+                <div class="empty-slot">사진을 찍으면<br />여기에 보여요</div><div class="empty-slot">02</div><div class="empty-slot">03</div><div class="empty-slot">04</div>
+              </div>
+              <div class="strip-caption"><span id="captionPreview">little moments</span><span id="datePreview"></span></div>
+            </div>
+            <span class="preview-label">PREVIEW</span>
+          </div>
+          <div class="edit-controls">
+            <div class="control-group">
+              <div class="control-title">프레임 색상 <span>FRAME</span></div>
+              <div class="swatches" role="group" aria-label="프레임 색상">
+                <button class="swatch active" data-theme="cream" style="--swatch:#f2e9dc" aria-label="크림" title="크림"></button>
+                <button class="swatch" data-theme="pink" style="--swatch:#f2dadd" aria-label="핑크" title="핑크"></button>
+                <button class="swatch" data-theme="blue" style="--swatch:#dce8eb" aria-label="하늘" title="하늘"></button>
+                <button class="swatch" data-theme="lemon" style="--swatch:#eee9c9" aria-label="레몬" title="레몬"></button>
+                <button class="swatch" data-theme="lavender" style="--swatch:#e6dff0" aria-label="라벤더" title="라벤더"></button>
+              </div>
+            </div>
+            <label class="control-group caption-field"><span class="control-title">한 줄 기록 <span>CAPTION</span></span><input id="captionInput" type="text" maxlength="22" placeholder="예: 우리 오늘 참 좋았다" /><small><span id="captionLength">0</span> / 22</small></label>
+            <div class="control-group">
+              <div class="control-title">사진 필터 <span>MOOD</span></div>
+              <div class="filter-options" role="group" aria-label="사진 필터">
+                <button class="filter-chip selected" data-filter="none">원본</button><button class="filter-chip" data-filter="warm">포근</button><button class="filter-chip" data-filter="mono">흑백</button>
+              </div>
+            </div>
+            <div class="download-area">
+              <button class="button button-download" id="downloadBtn" type="button" disabled><span>↓</span> 사진 저장하기</button>
+              <span>고화질 PNG · 내 기기에 저장</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer><span>네컷일기</span><span>한 장씩, 오늘의 우리.</span><span>MADE FOR YOUR MOMENTS ✳</span></footer>
+  </main>
+  <canvas id="exportCanvas" hidden></canvas>
+  <div class="saving-overlay" id="savingOverlay" aria-live="polite" aria-hidden="true">
+    <div class="saving-card"><div class="saving-mark" id="savingMark">✦</div><div class="saving-title" id="savingTitle">사진을 저장하고 있어요</div><p id="savingMessage">오늘의 네 컷을 예쁘게 정리하는 중이에요.</p><div class="saving-progress"><span id="savingProgress"></span></div></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
